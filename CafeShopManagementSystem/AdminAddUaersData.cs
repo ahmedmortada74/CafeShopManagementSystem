@@ -16,6 +16,7 @@ namespace CafeShopManagementSystem
         public string Password {  get; set; }
         public string Role {  get; set; }
         public string Status {  get; set; }
+        public string Image {  get; set; }
         public string DateRegistered {  get; set; }
         public List<AdminAddUaersData> usersListData()
         {
@@ -38,7 +39,8 @@ namespace CafeShopManagementSystem
                             userData.Username = reader["username"].ToString();
                             userData.Password = reader["password"].ToString();
                             userData.Role = reader["role"].ToString();
-                            userData.Status = reader["status"].ToString();  
+                            userData.Status = reader["status"].ToString(); 
+                            userData.Image = reader["profile_image"].ToString();
                             userData.DateRegistered= reader["date_reg"].ToString() ;
                             listData.Add(userData);
 
