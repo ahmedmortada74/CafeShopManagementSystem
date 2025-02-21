@@ -32,7 +32,6 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.adminAddUsers_importBtn = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.adminAddUsers_imageView = new System.Windows.Forms.PictureBox();
             this.adminAddUsers_clearBtn = new System.Windows.Forms.Button();
             this.adminAddUsers_deleteBtn = new System.Windows.Forms.Button();
             this.adminAddUsers_apdateBtn = new System.Windows.Forms.Button();
@@ -49,11 +48,12 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.adminAddUsers_imageView = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.adminAddUsers_imageView)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.adminAddUsers_imageView)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -102,15 +102,6 @@
             this.panel3.Size = new System.Drawing.Size(106, 105);
             this.panel3.TabIndex = 15;
             // 
-            // adminAddUsers_imageView
-            // 
-            this.adminAddUsers_imageView.Location = new System.Drawing.Point(3, 3);
-            this.adminAddUsers_imageView.Name = "adminAddUsers_imageView";
-            this.adminAddUsers_imageView.Size = new System.Drawing.Size(100, 99);
-            this.adminAddUsers_imageView.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.adminAddUsers_imageView.TabIndex = 0;
-            this.adminAddUsers_imageView.TabStop = false;
-            // 
             // adminAddUsers_clearBtn
             // 
             this.adminAddUsers_clearBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(99)))), ((int)(((byte)(102)))));
@@ -124,6 +115,7 @@
             this.adminAddUsers_clearBtn.TabIndex = 14;
             this.adminAddUsers_clearBtn.Text = "CLEAR";
             this.adminAddUsers_clearBtn.UseVisualStyleBackColor = false;
+            this.adminAddUsers_clearBtn.Click += new System.EventHandler(this.adminAddUsers_clearBtn_Click);
             // 
             // adminAddUsers_deleteBtn
             // 
@@ -138,6 +130,7 @@
             this.adminAddUsers_deleteBtn.TabIndex = 13;
             this.adminAddUsers_deleteBtn.Text = "DELETE";
             this.adminAddUsers_deleteBtn.UseVisualStyleBackColor = false;
+            this.adminAddUsers_deleteBtn.Click += new System.EventHandler(this.adminAddUsers_deleteBtn_Click);
             // 
             // adminAddUsers_apdateBtn
             // 
@@ -152,6 +145,7 @@
             this.adminAddUsers_apdateBtn.TabIndex = 12;
             this.adminAddUsers_apdateBtn.Text = "UPDATE";
             this.adminAddUsers_apdateBtn.UseVisualStyleBackColor = false;
+            this.adminAddUsers_apdateBtn.Click += new System.EventHandler(this.adminAddUsers_apdateBtn_Click);
             // 
             // adminAddUsers_addBtn
             // 
@@ -296,6 +290,15 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Data Of Users";
             // 
+            // adminAddUsers_imageView
+            // 
+            this.adminAddUsers_imageView.Location = new System.Drawing.Point(3, 3);
+            this.adminAddUsers_imageView.Name = "adminAddUsers_imageView";
+            this.adminAddUsers_imageView.Size = new System.Drawing.Size(100, 99);
+            this.adminAddUsers_imageView.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.adminAddUsers_imageView.TabIndex = 0;
+            this.adminAddUsers_imageView.TabStop = false;
+            // 
             // AdminAddUsers
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -308,10 +311,10 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.adminAddUsers_imageView)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.adminAddUsers_imageView)).EndInit();
             this.ResumeLayout(false);
 
         }

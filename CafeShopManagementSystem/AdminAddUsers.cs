@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
 
 namespace CafeShopManagementSystem
 {
@@ -102,7 +103,7 @@ namespace CafeShopManagementSystem
                                     cmd.Parameters.AddWithValue("@date",today);
 
                                     cmd.ExecuteNonQuery();
-
+                                    clearFields();
                                     MessageBox.Show("Added Successfully!","Information Message",MessageBoxButtons.OK,MessageBoxIcon.Information);
                                     displayAddUsersData();
                                 }  
@@ -140,33 +141,138 @@ namespace CafeShopManagementSystem
                 MessageBox.Show("Error:"+ex, "Error Message" ,MessageBoxButtons.OK,MessageBoxIcon.Error);
             }
         }
-
+         private int id =0;
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
 
-            //userData.ID = (int)reader["id"];
-            //userData.Username = reader["username"].ToString();
-            //userData.Password = reader["password"].ToString();
-            //userData.Role = reader["role"].ToString();
-            //userData.Status = reader["status"].ToString();
-            //userData.Image = reader["profile_image"].ToString();
-            //userData.DateRegistered = reader["date_reg"].ToString();
             DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
+            id = (int)row.Cells[0].Value; 
             adminAddUsers_username.Text = row.Cells[1].Value.ToString();
             adminAddUsers_password.Text = row.Cells[2].Value.ToString();
             adminAddUsers_role.Text = row.Cells[3].Value.ToString();
             adminAddUsers_status.Text = row.Cells[4].Value.ToString();
              
-            string imagePath = row.Cells[5].Value.ToString();   
-            if(imagePath != null)
+            string imagePath = row.Cells[5].Value.ToString();
+            try
             {
-                adminAddUsers_imageView.Image =Image.FromFile(imagePath);
+                if (imagePath != null)
+                {
+                    adminAddUsers_imageView.Image = Image.FromFile(imagePath);
+                }
+                else
+                {
+                    adminAddUsers_imageView.Image = null;
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("No Image :3","Error Message",MessageBoxButtons.OK,MessageBoxIcon.Error);   
+            }
+           
+            
+        }
+
+        private void adminAddUsers_apdateBtn_Click(object sender, EventArgs e)
+        {
+            if (emptFields())
+            {
+                MessageBox.Show("All fields are required to bo filld", "Erroe Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
-                adminAddUsers_imageView.Image = null;
+                DialogResult result = MessageBox.Show("Are you sure you want to Update Usrename:"+adminAddUsers_username.Text.Trim()
+                    +"?","Confrirmation Message",MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes)
+                {
+
+                    if (connect.State != ConnectionState.Open)
+                    {
+                        try
+                        {
+                            connect.Open();
+                            string updatData = "UPDATE users SET username =@usern, password =@pass ,role =@role, status=@status WHERE id=@id ";
+                            using (SqlCommand cmd = new SqlCommand(updatData, connect))
+                            {
+                                cmd.Parameters.AddWithValue("@usern", adminAddUsers_username.Text.Trim());
+                                cmd.Parameters.AddWithValue("@pass", adminAddUsers_password.Text.Trim());
+                                cmd.Parameters.AddWithValue("@role", adminAddUsers_role.Text.Trim());
+                                cmd.Parameters.AddWithValue("@status", adminAddUsers_status.Text.Trim());
+                                cmd.Parameters.AddWithValue("@id", id);
+
+                                cmd.ExecuteNonQuery();
+                                clearFields();
+                                MessageBox.Show("Updated Successfully!", "Information Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                displayAddUsersData();
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Connection failed:" + ex, "Error Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        finally
+                        {
+                            connect.Close();
+                        }
+                    }
+                }
+               
             }
-            
+        }
+
+        public void clearFields()
+        {
+            adminAddUsers_username.Text = "";
+            adminAddUsers_password.Text = "";
+            adminAddUsers_role.SelectedIndex = -1;
+            adminAddUsers_status.SelectedIndex = -1;
+            adminAddUsers_imageView.Image = null;
+        }
+        private void adminAddUsers_clearBtn_Click(object sender, EventArgs e)
+        {
+            clearFields();
+        }
+
+        private void adminAddUsers_deleteBtn_Click(object sender, EventArgs e)
+        {
+            if (emptFields())
+            {
+                MessageBox.Show("All fields are required to bo filld", "Erroe Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                DialogResult result = MessageBox.Show("Are you sure you want to Delete Usrename:" + adminAddUsers_username.Text.Trim()
+                    + "?", "Confrirmation Message", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes)
+                {
+
+                    if (connect.State != ConnectionState.Open)
+                    {
+                        try
+                        {
+                            connect.Open();
+                            string deleteData = "DELETE FROM users Where  id=@id ";
+                            using (SqlCommand cmd = new SqlCommand(deleteData, connect))
+                            {
+                                cmd.Parameters.AddWithValue("@id", id);
+
+                                cmd.ExecuteNonQuery();
+                                clearFields();
+                                MessageBox.Show("Deleted Successfully!", "Information Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                displayAddUsersData();
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Connection failed:" + ex, "Error Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        finally
+                        {
+                            connect.Close();
+                        }
+                    }
+                }
+
+            }
         }
     }
 }
