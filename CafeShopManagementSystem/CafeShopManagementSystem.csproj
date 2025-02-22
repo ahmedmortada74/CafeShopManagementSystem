@@ -52,6 +52,7 @@
     <Compile Include="AdminAddProducts.Designer.cs">
       <DependentUpon>AdminAddProducts.cs</DependentUpon>
     </Compile>
+    <Compile Include="AdminAddProductsData.cs" />
     <Compile Include="AdminAddUaersData.cs" />
     <Compile Include="AdminAddUsers.cs">
       <SubType>UserControl</SubType>
@@ -151,6 +152,7 @@
     <None Include="Assets\icons8-dollar-bag-100.png" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Product_Directory\" />
     <Folder Include="User_Directory\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -176,7 +176,7 @@ namespace CafeShopManagementSystem
         {
             if (emptFields())
             {
-                MessageBox.Show("All fields are required to bo filld", "Erroe Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("All fields are required to bo filld", "Error Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {

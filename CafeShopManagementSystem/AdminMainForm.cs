@@ -42,5 +42,26 @@ namespace CafeShopManagementSystem
                 this.Hide();
             }
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            adminDashboardForm1.Visible= true;
+            adminAddUsers1.Visible=false;
+            adminAddProducts1.Visible=false;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            adminDashboardForm1.Visible = false;
+            adminAddUsers1.Visible = true;
+            adminAddProducts1.Visible = false;
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            adminDashboardForm1.Visible = false;
+            adminAddUsers1.Visible = false;
+            adminAddProducts1.Visible = true;
+        }
     }
 }

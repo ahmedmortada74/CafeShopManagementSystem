@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
@@ -66,7 +66,7 @@
             this.panel1.Controls.Add(this.dataGridView1);
             this.panel1.Location = new System.Drawing.Point(14, 14);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(956, 288);
+            this.panel1.Size = new System.Drawing.Size(956, 310);
             this.panel1.TabIndex = 0;
             // 
             // label1
@@ -85,14 +85,14 @@
             this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(99)))), ((int)(((byte)(102)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Arial Rounded MT Bold", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(99)))), ((int)(((byte)(102)))));
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Arial Rounded MT Bold", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.EnableHeadersVisualStyles = false;
             this.dataGridView1.Location = new System.Drawing.Point(15, 47);
@@ -100,8 +100,9 @@
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.RowHeadersWidth = 35;
-            this.dataGridView1.Size = new System.Drawing.Size(923, 226);
+            this.dataGridView1.Size = new System.Drawing.Size(923, 248);
             this.dataGridView1.TabIndex = 2;
+            this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView1_CellClick);
             // 
             // panel2
             // 
@@ -124,7 +125,7 @@
             this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.adminAddProducts_id);
             this.panel2.Controls.Add(this.label2);
-            this.panel2.Location = new System.Drawing.Point(14, 321);
+            this.panel2.Location = new System.Drawing.Point(14, 353);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(956, 237);
             this.panel2.TabIndex = 1;
@@ -142,6 +143,7 @@
             this.adminAddProducts_clearBtn.TabIndex = 22;
             this.adminAddProducts_clearBtn.Text = "CLEAR";
             this.adminAddProducts_clearBtn.UseVisualStyleBackColor = false;
+            this.adminAddProducts_clearBtn.Click += new System.EventHandler(this.adminAddProducts_clearBtn_Click);
             // 
             // adminAddProducts_deleteBtn
             // 
@@ -156,6 +158,7 @@
             this.adminAddProducts_deleteBtn.TabIndex = 21;
             this.adminAddProducts_deleteBtn.Text = "DELETE";
             this.adminAddProducts_deleteBtn.UseVisualStyleBackColor = false;
+            this.adminAddProducts_deleteBtn.Click += new System.EventHandler(this.adminAddProducts_deleteBtn_Click);
             // 
             // adminAddProducts_apdateBtn
             // 
@@ -170,6 +173,7 @@
             this.adminAddProducts_apdateBtn.TabIndex = 20;
             this.adminAddProducts_apdateBtn.Text = "UPDATE";
             this.adminAddProducts_apdateBtn.UseVisualStyleBackColor = false;
+            this.adminAddProducts_apdateBtn.Click += new System.EventHandler(this.adminAddProducts_apdateBtn_Click);
             // 
             // adminAddProducts_addBtn
             // 
@@ -199,6 +203,7 @@
             this.adminAddProducts_importBtn.TabIndex = 18;
             this.adminAddProducts_importBtn.Text = "import";
             this.adminAddProducts_importBtn.UseVisualStyleBackColor = false;
+            this.adminAddProducts_importBtn.Click += new System.EventHandler(this.adminAddProducts_importBtn_Click);
             // 
             // panel3
             // 
@@ -223,8 +228,8 @@
             this.adminAddProducts_status.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.adminAddProducts_status.FormattingEnabled = true;
             this.adminAddProducts_status.Items.AddRange(new object[] {
-            "Admin",
-            "Cashier"});
+            "Available",
+            "Unavailable"});
             this.adminAddProducts_status.Location = new System.Drawing.Point(441, 119);
             this.adminAddProducts_status.Name = "adminAddProducts_status";
             this.adminAddProducts_status.Size = new System.Drawing.Size(186, 26);
@@ -283,8 +288,8 @@
             this.adminAddProducts_type.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.adminAddProducts_type.FormattingEnabled = true;
             this.adminAddProducts_type.Items.AddRange(new object[] {
-            "Admin",
-            "Cashier"});
+            "Meal",
+            "Drinks"});
             this.adminAddProducts_type.Location = new System.Drawing.Point(144, 119);
             this.adminAddProducts_type.Name = "adminAddProducts_type";
             this.adminAddProducts_type.Size = new System.Drawing.Size(186, 26);
@@ -345,7 +350,7 @@
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Name = "AdminAddProducts";
-            this.Size = new System.Drawing.Size(988, 572);
+            this.Size = new System.Drawing.Size(977, 593);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
