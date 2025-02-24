@@ -24,9 +24,9 @@ namespace CafeShopManagementSystem
 
         private void close_Click(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show("Are you sure you want to exit ", "Confirmation Messgse ",MessageBoxButtons.YesNo,MessageBoxIcon.Question);
-            
-            if(result == DialogResult.Yes)
+            DialogResult result = MessageBox.Show("Are you sure you want to exit ", "Confirmation Messgse ", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
             {
                 Application.Exit();
             }
@@ -35,7 +35,7 @@ namespace CafeShopManagementSystem
         private void logout_btn_Click(object sender, EventArgs e)
         {
             DialogResult check = MessageBox.Show("Are you sure you want to exit ", "Confirmation Messgse ", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if(check == DialogResult.Yes)
+            if (check == DialogResult.Yes)
             {
                 Form1 loginForm = new Form1();
                 loginForm.Show();
@@ -45,9 +45,9 @@ namespace CafeShopManagementSystem
 
         private void button1_Click(object sender, EventArgs e)
         {
-            adminDashboardForm1.Visible= true;
-            adminAddUsers1.Visible=false;
-            adminAddProducts1.Visible=false;
+            adminDashboardForm1.Visible = true;
+            adminAddUsers1.Visible = false;
+            adminAddProducts1.Visible = false;
         }
 
         private void button2_Click(object sender, EventArgs e)
