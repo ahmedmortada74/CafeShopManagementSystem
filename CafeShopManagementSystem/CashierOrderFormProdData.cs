@@ -34,7 +34,7 @@ namespace CafeShopManagementSystem
                 {
                     connect.Open();
 
-                    string selectData = "SELECT * FROM products WHERE prod_status =@stats ";
+                    string selectData = "SELECT * FROM products WHERE prod_status =@stats  AND date_delete IS NULL";
 
 
                     using (SqlCommand cmd = new SqlCommand(selectData, connect))

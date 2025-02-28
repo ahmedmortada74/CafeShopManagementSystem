@@ -25,4 +25,16 @@ date_insert  DATE NULL,
 date_update  DATE NULL,
 date_delete  DATE NULL,
 )
-SELECT * FROM products
+SELECT * FROM orders
+
+CREATE TABLE orders
+(
+id INT PRIMARY KEY IDENTITY(1,1),
+customer INT  NULL,
+prod_id VARCHAR (MAX) NULL,
+prod_name VARCHAR (MAX) NULL,
+prod_type VARCHAR (MAX) NULL,
+prod_price FLOAT NULL,
+order_date  DATE NULL,
+delete_order  DATE NULL,
+)

@@ -54,7 +54,7 @@ namespace CafeShopManagementSystem
                             apd.Image = reader["prod_image"].ToString();
                             apd.DateInsert = reader["date_insert"].ToString();
                             apd.DateUpdate = reader["date_update"].ToString();
-                         
+                        
                             listData.Add(apd);
                         }
                     }
@@ -85,8 +85,7 @@ namespace CafeShopManagementSystem
                     connect.Open();
 
                     string selectData = "SELECT * FROM products WHERE status =@stats ";
-
-                    
+  
                     using (SqlCommand cmd = new SqlCommand(selectData, connect))
                     {
                         cmd.Parameters.AddWithValue("@stats", "Available");
