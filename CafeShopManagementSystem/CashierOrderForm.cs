@@ -14,12 +14,16 @@ namespace CafeShopManagementSystem
 {
     public partial class CashierOrderForm : UserControl
     {
+        public static int getCustID;
+
         SqlConnection connect = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\AIA\Documents\cafe.mdf;Integrated Security=True;Connect Timeout=30");
 
         public CashierOrderForm()
         {
             InitializeComponent();
             displayAvailableProds();
+            displayAllOrders();
+            displayTotalPrice();
         }
 
         public void displayAvailableProds()
@@ -28,6 +32,49 @@ namespace CafeShopManagementSystem
 
             List<CashierOrderFormProdData> listData = allProds.availablProductsData();
             cashierOrderForm_menuTable.DataSource = listData;
+        }
+        
+        public void displayAllOrders()
+        {
+            CashierOrdersData allOrders = new CashierOrdersData();
+            List <CashierOrdersData> listData = allOrders.ordersListData();
+            cashierOrderForm_orderTable.DataSource = listData;
+        }
+
+
+        private int totalPrice;
+
+        public void displayTotalPrice()
+        {
+            IDGenerator();
+            if (connect.State == ConnectionState.Closed)
+            {
+                try
+                {
+                    connect.Open();
+
+                    string selectData = "SELECT SUM(prod_price) FROM orders WHERE customer_id = @custID";
+
+                    using (SqlCommand cmd = new SqlCommand(selectData, connect))
+                    {
+                        cmd.Parameters.AddWithValue("@custID", idGen);
+
+                        object result = cmd.ExecuteScalar();
+
+                        totalPrice = (result != DBNull.Value && result != null) ? Convert.ToInt32(result) : 0;
+
+                        cashierOrderForm_orderPrice.Text = totalPrice.ToString("0.00"); 
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Connection failed: " + ex.Message, "Error Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    connect.Close();
+                }
+            }
         }
 
         private void cashierOrderForm_addBtn_Click(object sender, EventArgs e)
@@ -45,7 +92,7 @@ namespace CafeShopManagementSystem
             }
             if (connect.State == ConnectionState.Closed)
             {
-           
+
                 try
                 {
                     connect.Open();
@@ -54,23 +101,24 @@ namespace CafeShopManagementSystem
 
                     string selectOrder = "SELECT * FROM products WHERE prod_id =@prodID";
 
-                    using(SqlCommand getOrder =new SqlCommand(selectOrder, connect))
+                    using (SqlCommand getOrder = new SqlCommand(selectOrder, connect))
                     {
+
                         getOrder.Parameters.AddWithValue("@prodID", cashierOrderForm_productID.Text.Trim());
 
                         using (SqlDataReader reader = getOrder.ExecuteReader())
                         {
-
                             if (reader.Read())
                             {
                                 object rawValue = reader["prod_price"];
-                                if(rawValue != DBNull.Value)
+
+                                if (rawValue != DBNull.Value)
                                 {
                                     getPrice = Convert.ToSingle(rawValue);
                                 }
                             }
                         }
-                        
+
 
                     }
 
@@ -78,18 +126,20 @@ namespace CafeShopManagementSystem
                         "VALUES(@customerID, @prodID,@prodName, @prodType, @qty, @prodPrice, @orderDate )";
                     DateTime today = DateTime.Today;
 
-                    using (SqlCommand cmd = new SqlCommand(insertOrder,connect))
+                    using (SqlCommand cmd = new SqlCommand(insertOrder, connect))
                     {
                         cmd.Parameters.AddWithValue("@customerID", idGen);
                         cmd.Parameters.AddWithValue("@prodID", cashierOrderForm_productID.Text.Trim());
                         cmd.Parameters.AddWithValue("@prodName", cashierOrderForm_prodName.Text);
                         cmd.Parameters.AddWithValue("@prodType", cashierOrderForm_type.Text.Trim());
-                        float totalPrice =( getPrice * (int)cashierOrderForm_quantity.Value);
+                        float totalPrice = (getPrice * (int)cashierOrderForm_quantity.Value);
                         cmd.Parameters.AddWithValue("@qty", cashierOrderForm_quantity.Value);
-                        cmd.Parameters.AddWithValue("@prodPrice",totalPrice);
+                        cmd.Parameters.AddWithValue("@prodPrice", totalPrice);
                         cmd.Parameters.AddWithValue("@orderDate", today);
 
                         cmd.ExecuteNonQuery();
+                        displayAllOrders();
+                        displayTotalPrice();
                     }
 
                 }
@@ -133,9 +183,10 @@ namespace CafeShopManagementSystem
                     {
                         idGen = 1;
                     }
+                    getCustID = idGen;
                 }
             }
-           
+
         }
 
         private void cashierOrderForm_type_SelectedIndexChanged(object sender, EventArgs e)
@@ -212,11 +263,48 @@ namespace CafeShopManagementSystem
                         }
                     }
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     MessageBox.Show("Error" + ex, "Error Message ", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                } 
+                }
+
+            }
+        }
+
+        private void cashierOrderForm_amount_TextChanged(object sender, EventArgs e)
+        {
            
+            
+        }
+
+        private void cashierOrderForm_amount_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                try
+                {
+                    float getAmount = Convert.ToSingle(cashierOrderForm_amount.Text);
+                    float getChange = (getAmount - totalPrice);
+
+                    if (getChange <= -1)
+                    {
+                        cashierOrderForm_amount.Text = "";
+                        cashierOrderForm_change.Text = "";
+                    }
+                    else
+                    {
+
+                        cashierOrderForm_change.Text = getChange.ToString();
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Invalid", "Error Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    cashierOrderForm_amount.Text = "";
+                    cashierOrderForm_change.Text = "";
+
+                }
             }
         }
     }

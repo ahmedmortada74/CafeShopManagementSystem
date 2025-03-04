@@ -25,6 +25,8 @@ date_insert  DATE NULL,
 date_update  DATE NULL,
 date_delete  DATE NULL,
 )
+SELECT MAX( customer_id) FROM  customers
+
 SELECT * FROM orders
 EXEC sp_rename 'orders.customer', 'customer_id', 'COLUMN';
 SELECT MaX(id) FROM orders
