@@ -50,13 +50,13 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.cashierOrderForm_orderPricecashierOrderForm_receiptBtn = new System.Windows.Forms.Button();
             this.cashierOrderForm_payBtn = new System.Windows.Forms.Button();
-            this.cashierOrderForm_change = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.cashierOrderForm_amount = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.cashierOrderForm_orderPrice = new System.Windows.Forms.Label();
             this.cashierOrderForm_orderTable = new System.Windows.Forms.DataGridView();
             this.label10 = new System.Windows.Forms.Label();
+            this.cashierOrderForm_change = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cashierOrderForm_menuTable)).BeginInit();
             this.panel2.SuspendLayout();
@@ -277,9 +277,9 @@
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.White;
+            this.panel3.Controls.Add(this.cashierOrderForm_change);
             this.panel3.Controls.Add(this.cashierOrderForm_orderPricecashierOrderForm_receiptBtn);
             this.panel3.Controls.Add(this.cashierOrderForm_payBtn);
-            this.panel3.Controls.Add(this.cashierOrderForm_change);
             this.panel3.Controls.Add(this.label13);
             this.panel3.Controls.Add(this.cashierOrderForm_amount);
             this.panel3.Controls.Add(this.label11);
@@ -318,15 +318,7 @@
             this.cashierOrderForm_payBtn.TabIndex = 37;
             this.cashierOrderForm_payBtn.Text = "PAY";
             this.cashierOrderForm_payBtn.UseVisualStyleBackColor = false;
-            // 
-            // cashierOrderForm_change
-            // 
-            this.cashierOrderForm_change.AutoSize = true;
-            this.cashierOrderForm_change.Font = new System.Drawing.Font("Arial Rounded MT Bold", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cashierOrderForm_change.Location = new System.Drawing.Point(153, 416);
-            this.cashierOrderForm_change.Name = "cashierOrderForm_change";
-            this.cashierOrderForm_change.Size = new System.Drawing.Size(0, 17);
-            this.cashierOrderForm_change.TabIndex = 36;
+            this.cashierOrderForm_payBtn.Click += new System.EventHandler(this.cashierOrderForm_payBtn_Click);
             // 
             // label13
             // 
@@ -402,6 +394,16 @@
             this.label10.TabIndex = 31;
             this.label10.Text = "Price ($):";
             // 
+            // cashierOrderForm_change
+            // 
+            this.cashierOrderForm_change.AutoSize = true;
+            this.cashierOrderForm_change.Font = new System.Drawing.Font("Arial Rounded MT Bold", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cashierOrderForm_change.Location = new System.Drawing.Point(153, 416);
+            this.cashierOrderForm_change.Name = "cashierOrderForm_change";
+            this.cashierOrderForm_change.Size = new System.Drawing.Size(17, 17);
+            this.cashierOrderForm_change.TabIndex = 39;
+            this.cashierOrderForm_change.Text = "0";
+            // 
             // CashierOrderForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -447,11 +449,11 @@
         private System.Windows.Forms.Label cashierOrderForm_orderPrice;
         private System.Windows.Forms.DataGridView cashierOrderForm_orderTable;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label cashierOrderForm_change;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox cashierOrderForm_amount;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Button cashierOrderForm_orderPricecashierOrderForm_receiptBtn;
         private System.Windows.Forms.Button cashierOrderForm_payBtn;
+        private System.Windows.Forms.Label cashierOrderForm_change;
     }
 }

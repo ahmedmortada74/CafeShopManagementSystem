@@ -27,7 +27,7 @@ date_delete  DATE NULL,
 )
 SELECT MAX( customer_id) FROM  customers
 
-SELECT * FROM orders
+SELECT * FROM customers
 EXEC sp_rename 'orders.customer', 'customer_id', 'COLUMN';
 SELECT MaX(id) FROM orders
 CREATE TABLE orders
@@ -41,8 +41,8 @@ prod_price FLOAT NULL,
 order_date  DATE NULL,
 delete_order  DATE NULL,
 )
-alter table orders
-add qty int null
+alter table customers
+add change float null
 
 
 

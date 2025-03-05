@@ -277,6 +277,7 @@ namespace CafeShopManagementSystem
             
         }
 
+
         private void cashierOrderForm_amount_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -304,6 +305,57 @@ namespace CafeShopManagementSystem
                     cashierOrderForm_amount.Text = "";
                     cashierOrderForm_change.Text = "";
 
+                }
+            }
+        }
+
+        private void cashierOrderForm_payBtn_Click(object sender, EventArgs e)
+        {
+            if(cashierOrderForm_amount.Text==""||cashierOrderForm_orderTable.Rows.Count < 0)
+            {
+                MessageBox.Show("Something went wrong.","Error Message",MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+            else
+            {
+                if(MessageBox.Show("Are You Sure for paying?","Confirmation Message",MessageBoxButtons.YesNo,MessageBoxIcon.Question) 
+                    == DialogResult.Yes)
+                {
+                    if(connect.State == ConnectionState.Closed)
+                    {
+                        try
+                        {
+                            connect.Open();
+                            IDGenerator();
+                            displayTotalPrice();
+
+                            string insertData = "INSERT INTO customers (customer_id ,total_price, amount, change, date)" +
+                                "VALUES (@custID, @totalPrice, @amount, @change, @date)";
+                            DateTime today = DateTime.Today;
+
+                            using(SqlCommand cmd = new SqlCommand(insertData,connect))
+                            {
+                                cmd.Parameters.AddWithValue("@custID", idGen);
+                                cmd.Parameters.AddWithValue("@totalPrice", totalPrice);
+                                cmd.Parameters.AddWithValue("@amount", cashierOrderForm_amount.Text);
+                                cmd.Parameters.AddWithValue("@change", cashierOrderForm_change.Text);
+                                cmd.Parameters.AddWithValue("@date", today);
+
+                                cmd.ExecuteNonQuery();  
+
+                                MessageBox.Show("Paid Successfully", "Information Message",MessageBoxButtons.OK, MessageBoxIcon.Error);    
+                            }
+
+                        }catch (Exception ex)
+                        {
+                            MessageBox.Show("Connection Failed"+ex, "Error Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                        }
+                        finally
+                        {
+                            connect.Close();
+                        }
+                    }
                 }
             }
         }
