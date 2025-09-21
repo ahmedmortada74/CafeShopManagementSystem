@@ -21,6 +21,7 @@ namespace CafeShopManagementSystem
         public CashierOrderForm()
         {
             InitializeComponent();
+            IDGenerator();
             displayAvailableProds();
             displayAllOrders();
             displayTotalPrice();
@@ -121,9 +122,9 @@ namespace CafeShopManagementSystem
 
 
                     }
+                    string insertOrder = "INSERT INTO orders (customer_id, prod_id, prod_name, prod_type, Qty, prod_price, order_date)" +
+                                         "VALUES(@customerID, @prodID, @prodName, @prodType, @qty, @prodPrice, @orderDate)";
 
-                    string insertOrder = "INSERT INTO orders (customer_id, prod_id,prod_name, prod_type, qty, prod_price, order_date)" +
-                        "VALUES(@customerID, @prodID,@prodName, @prodType, @qty, @prodPrice, @orderDate )";
                     DateTime today = DateTime.Today;
 
                     using (SqlCommand cmd = new SqlCommand(insertOrder, connect))
@@ -274,7 +275,6 @@ namespace CafeShopManagementSystem
         private void cashierOrderForm_amount_TextChanged(object sender, EventArgs e)
         {
            
-            
         }
 
 
@@ -359,5 +359,7 @@ namespace CafeShopManagementSystem
                 }
             }
         }
+
+       
     }
 }
