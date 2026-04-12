@@ -33,6 +33,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.close = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.customers_btn = new System.Windows.Forms.Button();
             this.logout_btn = new System.Windows.Forms.Button();
             this.order_btn = new System.Windows.Forms.Button();
             this.addProducts_btn = new System.Windows.Forms.Button();
@@ -40,16 +41,15 @@
             this.username = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.customers_btn = new System.Windows.Forms.Button();
-            this.panel3 = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.cashierOrderForm1 = new CafeShopManagementSystem.CashierOrderForm();
             this.adminAddProducts1 = new CafeShopManagementSystem.AdminAddProducts();
             this.adminDashboardForm1 = new CafeShopManagementSystem.AdminDashboardForm();
-            this.cashierOrderForm1 = new CafeShopManagementSystem.CashierOrderForm();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
-            this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -101,6 +101,19 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(215, 615);
             this.panel2.TabIndex = 2;
+            // 
+            // customers_btn
+            // 
+            this.customers_btn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(99)))), ((int)(((byte)(102)))));
+            this.customers_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.customers_btn.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.customers_btn.ForeColor = System.Drawing.Color.White;
+            this.customers_btn.Location = new System.Drawing.Point(12, 400);
+            this.customers_btn.Name = "customers_btn";
+            this.customers_btn.Size = new System.Drawing.Size(188, 40);
+            this.customers_btn.TabIndex = 21;
+            this.customers_btn.Text = "Customers";
+            this.customers_btn.UseVisualStyleBackColor = false;
             // 
             // logout_btn
             // 
@@ -188,18 +201,14 @@
             this.label2.TabIndex = 13;
             this.label2.Text = "Cashier\'s Portal";
             // 
-            // customers_btn
+            // pictureBox1
             // 
-            this.customers_btn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(99)))), ((int)(((byte)(102)))));
-            this.customers_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.customers_btn.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.customers_btn.ForeColor = System.Drawing.Color.White;
-            this.customers_btn.Location = new System.Drawing.Point(12, 400);
-            this.customers_btn.Name = "customers_btn";
-            this.customers_btn.Size = new System.Drawing.Size(188, 40);
-            this.customers_btn.TabIndex = 21;
-            this.customers_btn.Text = "Customers";
-            this.customers_btn.UseVisualStyleBackColor = false;
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(56, 25);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(100, 100);
+            this.pictureBox1.TabIndex = 12;
+            this.pictureBox1.TabStop = false;
             // 
             // panel3
             // 
@@ -212,14 +221,13 @@
             this.panel3.Size = new System.Drawing.Size(1013, 615);
             this.panel3.TabIndex = 3;
             // 
-            // pictureBox1
+            // cashierOrderForm1
             // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(56, 25);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(100, 100);
-            this.pictureBox1.TabIndex = 12;
-            this.pictureBox1.TabStop = false;
+            this.cashierOrderForm1.Location = new System.Drawing.Point(0, 3);
+            this.cashierOrderForm1.Name = "cashierOrderForm1";
+            this.cashierOrderForm1.Size = new System.Drawing.Size(977, 593);
+            this.cashierOrderForm1.TabIndex = 2;
+            this.cashierOrderForm1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cashierOrderForm_amount_KeyDown);
             // 
             // adminAddProducts1
             // 
@@ -234,13 +242,6 @@
             this.adminDashboardForm1.Name = "adminDashboardForm1";
             this.adminDashboardForm1.Size = new System.Drawing.Size(995, 572);
             this.adminDashboardForm1.TabIndex = 0;
-            // 
-            // cashierOrderForm1
-            // 
-            this.cashierOrderForm1.Location = new System.Drawing.Point(0, 3);
-            this.cashierOrderForm1.Name = "cashierOrderForm1";
-            this.cashierOrderForm1.Size = new System.Drawing.Size(977, 593);
-            this.cashierOrderForm1.TabIndex = 2;
             // 
             // CashierMainForm
             // 
@@ -257,8 +258,8 @@
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            this.panel3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.panel3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

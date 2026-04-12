@@ -36,5 +36,10 @@ namespace CafeShopManagementSystem
                 this.Hide();
             }
         }
+
+        private void cashierOrderForm_amount_KeyDown(object sender, KeyEventArgs e)
+        {
+
+        }
     }
 }

@@ -24,7 +24,8 @@ date_insert  DATE NULL,
 date_update  DATE NULL,
 date_delete  DATE NULL,
 )
-Select* from orders
+
+Select* from customers
 
 CREATE TABLE orders
 (
@@ -39,8 +40,8 @@ delete_order  DATE NULL,
 
 )
 
-Select TABLE orders
-ADD Qty INT NOT NULL DEFAULT 1;
+Alter TABLE customers
+ADD users VARCHAR (MAX) NULL;
 
 
 CREATE TABLE customers
@@ -52,7 +53,7 @@ date date null,
 change  float NULL,
 amount  float NULL
 )
-
+truncate table orders
 SELECT MAX( customer_id) FROM  customers
 SELECT * FROM customers
 SELECT * FROM users

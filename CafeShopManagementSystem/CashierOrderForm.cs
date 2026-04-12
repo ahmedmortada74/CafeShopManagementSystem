@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data;
 using System.Data.SqlClient;
+using System.Globalization;
+
+using System.Drawing.Printing;
 
 namespace CafeShopManagementSystem
 {
@@ -34,11 +37,11 @@ namespace CafeShopManagementSystem
             List<CashierOrderFormProdData> listData = allProds.availablProductsData();
             cashierOrderForm_menuTable.DataSource = listData;
         }
-        
+
         public void displayAllOrders()
         {
             CashierOrdersData allOrders = new CashierOrdersData();
-            List <CashierOrdersData> listData = allOrders.ordersListData();
+            List<CashierOrdersData> listData = allOrders.ordersListData();
             cashierOrderForm_orderTable.DataSource = listData;
         }
 
@@ -64,7 +67,7 @@ namespace CafeShopManagementSystem
 
                         totalPrice = (result != DBNull.Value && result != null) ? Convert.ToInt32(result) : 0;
 
-                        cashierOrderForm_orderPrice.Text = totalPrice.ToString("0.00"); 
+                        cashierOrderForm_orderPrice.Text = totalPrice.ToString("0.00");
                     }
                 }
                 catch (Exception ex)
@@ -272,56 +275,51 @@ namespace CafeShopManagementSystem
             }
         }
 
-        private void cashierOrderForm_amount_TextChanged(object sender, EventArgs e)
-        {
-           
-        }
+
 
 
         private void cashierOrderForm_amount_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-                try
+                e.SuppressKeyPress = true;
+
+                if (!decimal.TryParse(cashierOrderForm_amount.Text,  NumberStyles.Number, CultureInfo.InvariantCulture,  out decimal amount))
                 {
-                    float getAmount = Convert.ToSingle(cashierOrderForm_amount.Text);
-                    float getChange = (getAmount - totalPrice);
-
-                    if (getChange <= -1)
-                    {
-                        cashierOrderForm_amount.Text = "";
-                        cashierOrderForm_change.Text = "";
-                    }
-                    else
-                    {
-
-                        cashierOrderForm_change.Text = getChange.ToString();
-                    }
-
+                    MessageBox.Show("الرجاء إدخال قيمة صحيحة.", "خطأ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    cashierOrderForm_amount.Clear();
+                    return;
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Invalid", "Error Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    cashierOrderForm_amount.Text = "";
-                    cashierOrderForm_change.Text = "";
 
+                decimal total = (decimal)totalPrice;
+
+                decimal change = amount - total;
+
+                if (change < 0)
+                {
+                    MessageBox.Show("المبلغ المدفوع أقل من الإجمالي.", "تحذير", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    cashierOrderForm_change.Text = "";
+                }
+                else
+                {
+                    cashierOrderForm_change.Text = change.ToString("0.00");
                 }
             }
         }
 
         private void cashierOrderForm_payBtn_Click(object sender, EventArgs e)
         {
-            if(cashierOrderForm_amount.Text==""||cashierOrderForm_orderTable.Rows.Count < 0)
+            if (cashierOrderForm_amount.Text == "" || cashierOrderForm_orderTable.Rows.Count < 0)
             {
-                MessageBox.Show("Something went wrong.","Error Message",MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Something went wrong.", "Error Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             }
             else
             {
-                if(MessageBox.Show("Are You Sure for paying?","Confirmation Message",MessageBoxButtons.YesNo,MessageBoxIcon.Question) 
+                if (MessageBox.Show("Are You Sure for paying?", "Confirmation Message", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
                     == DialogResult.Yes)
                 {
-                    if(connect.State == ConnectionState.Closed)
+                    if (connect.State == ConnectionState.Closed)
                     {
                         try
                         {
@@ -333,7 +331,7 @@ namespace CafeShopManagementSystem
                                 "VALUES (@custID, @totalPrice, @amount, @change, @date)";
                             DateTime today = DateTime.Today;
 
-                            using(SqlCommand cmd = new SqlCommand(insertData,connect))
+                            using (SqlCommand cmd = new SqlCommand(insertData, connect))
                             {
                                 cmd.Parameters.AddWithValue("@custID", idGen);
                                 cmd.Parameters.AddWithValue("@totalPrice", totalPrice);
@@ -341,14 +339,15 @@ namespace CafeShopManagementSystem
                                 cmd.Parameters.AddWithValue("@change", cashierOrderForm_change.Text);
                                 cmd.Parameters.AddWithValue("@date", today);
 
-                                cmd.ExecuteNonQuery();  
+                                cmd.ExecuteNonQuery();
 
-                                MessageBox.Show("Paid Successfully", "Information Message",MessageBoxButtons.OK, MessageBoxIcon.Error);    
+                                MessageBox.Show("Paid Successfully", "Information Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
 
-                        }catch (Exception ex)
+                        }
+                        catch (Exception ex)
                         {
-                            MessageBox.Show("Connection Failed"+ex, "Error Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("Connection Failed" + ex, "Error Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                         }
                         finally
@@ -360,6 +359,171 @@ namespace CafeShopManagementSystem
             }
         }
 
-       
+        private int rowIndex = 0;
+
+      
+        private void printDocument1_BeginPrint(object sender, System.Drawing.Printing.PrintEventArgs e)
+        {
+            rowIndex = 0;
+        }
+
+
+
+
+        private void cashierOrderForm_receiptBtn_Click(object sender, EventArgs e)
+        {
+            printDocument1.PrintPage -= printDocument1_PrintPage;
+            printDocument1.BeginPrint -= printDocument1_BeginPrint;
+            printDocument1.PrintPage += printDocument1_PrintPage;
+            printDocument1.BeginPrint += printDocument1_BeginPrint;
+
+            printPreviewDialog1.Document = printDocument1;
+            printPreviewDialog1.ShowDialog();
+        }
+
+        private void printDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        {
+            Graphics g = e.Graphics;
+            float pageWidth = e.MarginBounds.Width;
+            float x = e.MarginBounds.Left;
+            float y = e.MarginBounds.Top;
+
+            Font titleFont = new Font("Arial", 16, FontStyle.Bold);
+            Font subFont = new Font("Arial", 9);
+            Font boldFont = new Font("Arial", 10, FontStyle.Bold);
+            Font cellFont = new Font("Arial", 9);
+            Font totalFont = new Font("Arial", 11, FontStyle.Bold);
+            Font smallFont = new Font("Arial", 8);
+
+            StringFormat center = new StringFormat { Alignment = StringAlignment.Center };
+            StringFormat rightFmt = new StringFormat { Alignment = StringAlignment.Far };
+            StringFormat leftFmt = new StringFormat { Alignment = StringAlignment.Near };
+
+            // ── Header ────────────────────────────────────────────
+            g.FillRectangle(new SolidBrush(Color.FromArgb(26, 26, 46)),
+                            new RectangleF(x, y, pageWidth, 65));
+            g.DrawString("Mortadella Cafe Shop ", titleFont, Brushes.White,
+                         new RectangleF(x, y + 8, pageWidth, 36), center);
+            g.DrawString("Receipt", subFont, new SolidBrush(Color.FromArgb(180, 180, 180)),
+                         new RectangleF(x, y + 44, pageWidth, 18), center);
+            y += 75;
+
+            // ── Date ──────────────────────────────────────────────
+            g.DrawString(DateTime.Now.ToString("yyyy-MM-dd   HH:mm:ss"),
+               new Font("Arial", 12, FontStyle.Bold), Brushes.Black,
+               new RectangleF(x, y, pageWidth, 18), center);
+            y += 24;
+
+            // ── Table Header ──────────────────────────────────────
+            DrawDashedLine(g, x, y, x + pageWidth, y);
+            y += 8;
+
+            float c0 = 25;
+            float c1 = 70;
+            float c2 = pageWidth - 25 - 70 - 55 - 70;
+            float c3 = 55;
+            float c4 = 70;
+
+            float[] colWidths = { c0, c1, c2, c3, c4 };
+            string[] headers = { "#", "Prod ID", "Product Name", "Qty", "Price" };
+
+            float cx = x;
+            for (int i = 0; i < headers.Length; i++)
+            {
+                g.DrawString(headers[i], boldFont, Brushes.Black,
+                             new RectangleF(cx, y, colWidths[i], 18),
+                             i == headers.Length - 1 ? rightFmt : leftFmt);
+                cx += colWidths[i];
+            }
+            y += 20;
+            DrawDashedLine(g, x, y, x + pageWidth, y);
+            y += 6;
+
+            // ── Table Rows ────────────────────────────────────────
+            int rowNum = 1;
+            while (rowIndex < cashierOrderForm_orderTable.Rows.Count)
+            {
+                DataGridViewRow row = cashierOrderForm_orderTable.Rows[rowIndex];
+
+                string[] cells = {
+            rowNum.ToString(),
+            row.Cells["ProdID"].Value?.ToString()    ?? "",
+            row.Cells["ProdName"].Value?.ToString()  ?? "",
+            row.Cells["Qty"].Value?.ToString()        ?? "",
+            row.Cells["Price"].Value?.ToString() ?? ""
+        };
+
+                if (rowNum % 2 == 0)
+                    g.FillRectangle(new SolidBrush(Color.FromArgb(245, 245, 245)),
+                                    new RectangleF(x, y, pageWidth, 18));
+
+                cx = x;
+                for (int i = 0; i < cells.Length; i++)
+                {
+                    g.DrawString(cells[i], cellFont, Brushes.Black,
+                                 new RectangleF(cx, y, colWidths[i], 18),
+                                 i == cells.Length - 1 ? rightFmt : leftFmt);
+                    cx += colWidths[i];
+                }
+
+                y += 20;
+                rowNum++;
+                rowIndex++;
+
+                if (y + 110 > e.MarginBounds.Bottom)
+                {
+                    e.HasMorePages = true;
+                    return;
+                }
+            }
+
+            // ── Totals ────────────────────────────────────────────
+            y += 8;
+            DrawDashedLine(g, x, y, x + pageWidth, y);
+            y += 10;
+
+            float labelW = pageWidth * 0.5f;
+            float valueX = x + labelW;
+            float valueW = pageWidth * 0.5f;
+
+            decimal total = (decimal)totalPrice;
+            decimal paid = decimal.TryParse(cashierOrderForm_amount.Text,
+                                 NumberStyles.Number, CultureInfo.InvariantCulture,
+                                 out decimal p) ? p : 0;
+            decimal change = paid - total;
+
+            g.DrawString("Total:", totalFont, Brushes.Black,
+                         new RectangleF(x, y, labelW, 22), leftFmt);
+            g.DrawString(total.ToString("0.00") + " L.E", totalFont, Brushes.Black,
+                         new RectangleF(valueX, y, valueW, 22), rightFmt);
+            y += 26;
+
+            g.DrawString("Paid:", boldFont, Brushes.Black,
+                         new RectangleF(x, y, labelW, 20), leftFmt);
+            g.DrawString(paid.ToString("0.00") + " L.E", cellFont, Brushes.Black,
+                         new RectangleF(valueX, y, valueW, 20), rightFmt);
+            y += 24;
+
+            g.DrawString("Change:", boldFont, Brushes.Black,
+                         new RectangleF(x, y, labelW, 20), leftFmt);
+            g.DrawString(change.ToString("0.00") + " L.E",
+                         new Font("Arial", 12, FontStyle.Bold),
+                         new SolidBrush(Color.FromArgb(0, 128, 80)),
+                         new RectangleF(valueX, y, valueW, 20), rightFmt);
+            y += 32;
+
+            // ── Footer ────────────────────────────────────────────
+            DrawDashedLine(g, x, y, x + pageWidth, y);
+            y += 10;
+            g.DrawString("Thank you for visiting! See you again :)",
+                         smallFont, Brushes.Gray,
+                         new RectangleF(x, y, pageWidth, 18), center);
+        }
+
+        private void DrawDashedLine(Graphics g, float x1, float y1, float x2, float y2)
+        {
+            using (Pen pen = new Pen(Color.LightGray, 1) { DashPattern = new float[] { 4, 4 } })
+                g.DrawLine(pen, x1, y1, x2, y2);
+        }
     }
 }
