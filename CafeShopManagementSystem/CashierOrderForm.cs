@@ -64,11 +64,20 @@ namespace CafeShopManagementSystem
                         cmd.Parameters.AddWithValue("@custID", idGen);
 
                         object result = cmd.ExecuteScalar();
+                        if (result != DBNull.Value)
+                        {
+                            totalPrice = (int)Convert.ToSingle(result);
+                            //totalPrice = (result != DBNull.Value && result != null) ? Convert.ToInt32(result) : 0;
+                            cashierOrderForm_orderPrice.Text = totalPrice.ToString("0.00");
 
-                        totalPrice = (result != DBNull.Value && result != null) ? Convert.ToInt32(result) : 0;
+                        }
+                        else
+                        {
+                            //totalPrice = 0;
+                            //cashierOrderForm_orderPrice.Text = "0.00";
 
-                        cashierOrderForm_orderPrice.Text = totalPrice.ToString("0.00");
-                    }
+                        }
+                        }
                 }
                 catch (Exception ex)
                 {
@@ -420,12 +429,12 @@ namespace CafeShopManagementSystem
 
             float c0 = 25;
             float c1 = 70;
-            float c2 = pageWidth - 25 - 70 - 55 - 70;
-            float c3 = 55;
+            float c2 = pageWidth - 25 - 70 - 105 - 70 - 40;
+            float c3 = 105;
             float c4 = 70;
-
-            float[] colWidths = { c0, c1, c2, c3, c4 };
-            string[] headers = { "#", "Prod ID", "Product Name", "Qty", "Price" };
+            float c5 = 40;
+            float[] colWidths = { c0, c1, c2, c3, c4, c5 };
+            string[] headers = { "#", "Prod ID", "Product Name", "Product Type", "Quantity", "Price" };
 
             float cx = x;
             for (int i = 0; i < headers.Length; i++)
@@ -449,6 +458,7 @@ namespace CafeShopManagementSystem
             rowNum.ToString(),
             row.Cells["ProdID"].Value?.ToString()    ?? "",
             row.Cells["ProdName"].Value?.ToString()  ?? "",
+            row.Cells["ProdType"].Value?.ToString()  ?? "",
             row.Cells["Qty"].Value?.ToString()        ?? "",
             row.Cells["Price"].Value?.ToString() ?? ""
         };

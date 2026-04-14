@@ -41,5 +41,37 @@ namespace CafeShopManagementSystem
         {
 
         }
+
+        private void dashboard_btn_Click(object sender, EventArgs e)
+        {
+            adminDashboardForm1.Visible = true;
+            adminAddProducts1.Visible = false;
+            cashierOrderForm1.Visible = false;
+            cashierCustomersForm1.Visible = false;
+        }
+
+
+        private void addProducts_btn_Click(object sender, EventArgs e)
+        {
+            adminAddProducts1.Visible = true;
+            adminDashboardForm1.Visible = false;
+            cashierOrderForm1.Visible = false;
+            cashierCustomersForm1.Visible = false;
+        }
+        private void order_btn_Click(object sender, EventArgs e)
+        {
+            adminDashboardForm1.Visible = false;
+            adminAddProducts1.Visible = false;
+            cashierOrderForm1.Visible = true;
+            cashierCustomersForm1.Visible = false;
+        }
+        private void customers_btn_Click(object sender, EventArgs e)
+        {
+            cashierCustomersForm1.Visible = true;
+            adminDashboardForm1.Visible = false;
+            adminAddProducts1.Visible = false;
+            cashierOrderForm1.Visible = false;
+        }
+
     }
 }

@@ -62,3 +62,30 @@ SELECT * FROM orders
 SELECT MaX(id) FROM orders
 INSERT INTO users (username, password,profile_image,role,status,date_reg) VALUES ('admin','admin123','','Admin','Active','2025-02-15');
 EXEC sp_rename 'orders.customer', 'customer_id', 'COLUMN';
+
+SELECT SUM(total_price) FROM Customers WHERE Date ='2025-03-05'
+SELECT SUM(total_price) FROM Customers
+
+SELECT * FROM Customers
+INSERT INTO Products 
+( prod_id, prod_name, prod_type, prod_stock, prod_price, prod_status, prod_image, date_insert, date_update, date_delete)
+VALUES
+( 'PRD-001', 'Orange Juice', 'Drinks', 100, 25, 'Available', 'E:\projects\CafeShopManagementSystem\CafeShopManagementSystem\Product_Directory\PRD-001.jpg', '2025-01-10', NULL, NULL),
+
+( 'PRD-002', 'Mango Juice', 'Drinks', 80, 30, 'Available', 'E:\projects\CafeShopManagementSystem\CafeShopManagementSystem\Product_Directory\PRD-002.jpg', '2025-01-12', NULL, NULL),
+
+( 'PRD-003', 'Cappuccino', 'Drinks', 60, 35, 'Available', 'E:\projects\CafeShopManagementSystem\CafeShopManagementSystem\Product_Directory\PRD-003.jpg', '2025-01-15', NULL, NULL),
+
+( 'PRD-004', 'Latte', 'Drinks', 50, 40, 'Available', 'E:\projects\CafeShopManagementSystem\CafeShopManagementSystem\Product_Directory\PRD-004.jpg', '2025-01-18', NULL, NULL),
+
+( 'PRD-005', 'Espresso', 'Drinks', 70, 20, 'Available', 'E:\projects\CafeShopManagementSystem\CafeShopManagementSystem\Product_Directory\PRD-005.jpg', '2025-01-20', NULL, NULL),
+
+( 'PRD-006', 'Chicken Sandwich', 'Meal', 40, 55, 'Available', 'E:\projects\CafeShopManagementSystem\CafeShopManagementSystem\Product_Directory\PRD-006.jpg', '2025-01-22', NULL, NULL),
+
+( 'PRD-007', 'Beef Burger', 'Meal', 30, 75, 'Available', 'E:\projects\CafeShopManagementSystem\CafeShopManagementSystem\Product_Directory\PRD-007.jpg', '2025-01-25', NULL, NULL),
+
+( 'PRD-008', 'French Fries', 'Snacks', 90, 25, 'Available', 'E:\projects\CafeShopManagementSystem\CafeShopManagementSystem\Product_Directory\PRD-008.jpg', '2025-01-28', NULL, NULL),
+
+( 'PRD-009', 'Pizza Margherita', 'Meal', 20, 90, 'Available', 'E:\projects\CafeShopManagementSystem\CafeShopManagementSystem\Product_Directory\PRD-009.jpg', '2025-02-01', NULL, NULL),
+
+( 'PRD-010', 'Chocolate Cake', 'Dessert', 35, 45, 'Available', 'E:\projects\CafeShopManagementSystem\CafeShopManagementSystem\Product_Directory\PRD-010.jpg', '2025-02-05', NULL, NULL);
