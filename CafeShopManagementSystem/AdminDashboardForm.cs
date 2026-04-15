@@ -27,6 +27,23 @@ namespace CafeShopManagementSystem
             displayTodaysIncome();
         }
 
+        public void refreshData()
+        {
+            if (InvokeRequired)
+            {
+                Invoke((MethodInvoker)refreshData);
+
+                return;
+
+            }
+            else
+            {
+                displayTotalCashier();
+                displayTotalCustomer();
+                displayTotalIncome();
+                displayTodaysIncome();
+            }
+        }
         public void displayTotalCashier()
         {
             if (connect.State == ConnectionState.Closed)
@@ -140,20 +157,20 @@ namespace CafeShopManagementSystem
                 try
                 {
                     connect.Open();
-                    string selectData = "SELECT SUM(total_price) FROM Customers WHERE date = @date";
+
+                
+                    string selectData = @"SELECT ISNULL(SUM(total_price), 0) FROM Customers 
+                                  WHERE CAST(date AS DATE) = @date";
 
                     using (SqlCommand cmd = new SqlCommand(selectData, connect))
                     {
-                        DateTime today = DateTime.Today;
-                        string getToday = today.ToString("yyyy-MM-dd");
-
-                        cmd.Parameters.AddWithValue("@date", getToday);
+                       
+                        cmd.Parameters.Add("@date", SqlDbType.Date).Value = DateTime.Today;
 
                         SqlDataReader reader = cmd.ExecuteReader();
                         if (reader.Read())
                         {
-                            // ✅ Check for DBNull before converting
-                            int count = reader[0] == DBNull.Value ? 0 : Convert.ToInt32(reader[0]);
+                            decimal count = reader[0] == DBNull.Value ? 0 : Convert.ToDecimal(reader[0]);
                             dashbord_TIn.Text = count.ToString("0.00") + " L.E";
                         }
                         reader.Close();

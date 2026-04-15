@@ -63,6 +63,16 @@ namespace CafeShopManagementSystem.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap b295d35f725dc1214b09cb2cdf63c74c {
+            get {
+                object obj = ResourceManager.GetObject("b295d35f725dc1214b09cb2cdf63c74c", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icons8_cafe_100 {
             get {
                 object obj = ResourceManager.GetObject("icons8-cafe-100", resourceCulture);

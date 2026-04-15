@@ -41,15 +41,16 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.adminDashboardForm1 = new CafeShopManagementSystem.AdminDashboardForm();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.cashierCustomersForm1 = new CafeShopManagementSystem.CashierCustomersForm();
             this.adminAddProducts1 = new CafeShopManagementSystem.AdminAddProducts();
             this.adminAddUsers1 = new CafeShopManagementSystem.AdminAddUsers();
+            this.adminDashboardForm1 = new CafeShopManagementSystem.AdminDashboardForm();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -128,6 +129,7 @@
             this.button4.TabIndex = 19;
             this.button4.Text = "Customers";
             this.button4.UseVisualStyleBackColor = false;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // button3
             // 
@@ -204,6 +206,17 @@
             this.label2.TabIndex = 13;
             this.label2.Text = "Admin\'s Portal";
             // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.adminDashboardForm1);
+            this.panel3.Controls.Add(this.adminAddUsers1);
+            this.panel3.Controls.Add(this.adminAddProducts1);
+            this.panel3.Controls.Add(this.cashierCustomersForm1);
+            this.panel3.Location = new System.Drawing.Point(221, 48);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(995, 609);
+            this.panel3.TabIndex = 2;
+            // 
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
@@ -213,36 +226,33 @@
             this.pictureBox1.TabIndex = 12;
             this.pictureBox1.TabStop = false;
             // 
-            // panel3
+            // cashierCustomersForm1
             // 
-            this.panel3.Controls.Add(this.adminDashboardForm1);
-            this.panel3.Controls.Add(this.adminAddProducts1);
-            this.panel3.Controls.Add(this.adminAddUsers1);
-            this.panel3.Location = new System.Drawing.Point(221, 48);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(995, 609);
-            this.panel3.TabIndex = 2;
-            // 
-            // adminDashboardForm1
-            // 
-            this.adminDashboardForm1.Location = new System.Drawing.Point(0, 3);
-            this.adminDashboardForm1.Name = "adminDashboardForm1";
-            this.adminDashboardForm1.Size = new System.Drawing.Size(995, 572);
-            this.adminDashboardForm1.TabIndex = 2;
+            this.cashierCustomersForm1.Location = new System.Drawing.Point(3, 3);
+            this.cashierCustomersForm1.Name = "cashierCustomersForm1";
+            this.cashierCustomersForm1.Size = new System.Drawing.Size(977, 593);
+            this.cashierCustomersForm1.TabIndex = 0;
             // 
             // adminAddProducts1
             // 
             this.adminAddProducts1.Location = new System.Drawing.Point(0, 0);
             this.adminAddProducts1.Name = "adminAddProducts1";
-            this.adminAddProducts1.Size = new System.Drawing.Size(988, 572);
+            this.adminAddProducts1.Size = new System.Drawing.Size(977, 593);
             this.adminAddProducts1.TabIndex = 1;
             // 
             // adminAddUsers1
             // 
-            this.adminAddUsers1.Location = new System.Drawing.Point(0, 3);
+            this.adminAddUsers1.Location = new System.Drawing.Point(0, 0);
             this.adminAddUsers1.Name = "adminAddUsers1";
-            this.adminAddUsers1.Size = new System.Drawing.Size(992, 566);
-            this.adminAddUsers1.TabIndex = 0;
+            this.adminAddUsers1.Size = new System.Drawing.Size(988, 572);
+            this.adminAddUsers1.TabIndex = 2;
+            // 
+            // adminDashboardForm1
+            // 
+            this.adminDashboardForm1.Location = new System.Drawing.Point(-7, -3);
+            this.adminDashboardForm1.Name = "adminDashboardForm1";
+            this.adminDashboardForm1.Size = new System.Drawing.Size(987, 567);
+            this.adminDashboardForm1.TabIndex = 3;
             // 
             // AdminMainForm
             // 
@@ -261,8 +271,8 @@
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -283,8 +293,9 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button logout_btn;
         private System.Windows.Forms.Panel panel3;
+        private AdminDashboardForm adminDashboardForm1;
         private AdminAddUsers adminAddUsers1;
         private AdminAddProducts adminAddProducts1;
-        private AdminDashboardForm adminDashboardForm1;
+        private CashierCustomersForm cashierCustomersForm1;
     }
 }

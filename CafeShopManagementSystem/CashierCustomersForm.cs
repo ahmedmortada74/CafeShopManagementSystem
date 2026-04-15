@@ -19,6 +19,18 @@ namespace CafeShopManagementSystem
             DisplayCustomersData();
 
         }
+
+        public void refreshData()
+        {
+            if (InvokeRequired)
+            {
+                Invoke((MethodInvoker)refreshData);
+
+                return;
+
+            }
+            DisplayCustomersData();
+        }
         public void DisplayCustomersData()
         {
             CustomersData cData = new CustomersData();

@@ -63,7 +63,8 @@ SELECT MaX(id) FROM orders
 INSERT INTO users (username, password,profile_image,role,status,date_reg) VALUES ('admin','admin123','','Admin','Active','2025-02-15');
 EXEC sp_rename 'orders.customer', 'customer_id', 'COLUMN';
 
-SELECT SUM(total_price) FROM Customers WHERE Date ='2025-03-05'
+SELECT ISNULL(SUM(total_price), 0) FROM Customers 
+                                  WHERE CAST(date AS DATE) = '2025-03-05'
 SELECT SUM(total_price) FROM Customers
 
 SELECT * FROM Customers

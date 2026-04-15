@@ -30,6 +30,20 @@ namespace CafeShopManagementSystem
             displayTotalPrice();
         }
 
+        public void refreshData()
+        {
+            if (InvokeRequired)
+            {
+                Invoke((MethodInvoker)refreshData);
+
+                return;
+
+            }
+            displayAvailableProds();
+            displayAllOrders();
+            displayTotalPrice();
+        }
+
         public void displayAvailableProds()
         {
             CashierOrderFormProdData allProds = new CashierOrderFormProdData();
@@ -73,8 +87,8 @@ namespace CafeShopManagementSystem
                         }
                         else
                         {
-                            //totalPrice = 0;
-                            //cashierOrderForm_orderPrice.Text = "0.00";
+                            totalPrice = 0;
+                            cashierOrderForm_orderPrice.Text = "0.00";
 
                         }
                         }

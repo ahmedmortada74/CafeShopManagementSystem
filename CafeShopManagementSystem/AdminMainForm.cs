@@ -48,6 +48,16 @@ namespace CafeShopManagementSystem
             adminDashboardForm1.Visible = true;
             adminAddUsers1.Visible = false;
             adminAddProducts1.Visible = false;
+            cashierCustomersForm1.Visible = false;
+
+            AdminDashboardForm dashboard = adminDashboardForm1 as AdminDashboardForm;
+
+            if(dashboard != null)
+            {
+                dashboard.refreshData();
+               
+            }
+
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -55,6 +65,16 @@ namespace CafeShopManagementSystem
             adminDashboardForm1.Visible = false;
             adminAddUsers1.Visible = true;
             adminAddProducts1.Visible = false;
+            cashierCustomersForm1.Visible = false;
+
+
+            AdminAddUsers addUsers = adminAddUsers1 as AdminAddUsers;
+
+            if (addUsers != null)
+            {
+                addUsers.refreshData();
+
+            }
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -62,6 +82,29 @@ namespace CafeShopManagementSystem
             adminDashboardForm1.Visible = false;
             adminAddUsers1.Visible = false;
             adminAddProducts1.Visible = true;
+            cashierCustomersForm1.Visible = false;
+
+            AdminAddProducts addProducts = adminAddProducts1 as AdminAddProducts;
+
+            if (addProducts != null)
+            {
+                addProducts.refreshData();
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            adminDashboardForm1.Visible = false;
+            adminAddUsers1.Visible = false;
+            adminAddProducts1.Visible = false;
+            cashierCustomersForm1.Visible = true;
+
+            CashierCustomersForm addCustomers = cashierCustomersForm1 as CashierCustomersForm;
+
+            if (addCustomers != null)
+            {
+                addCustomers.refreshData();
+            }
         }
     }
 }
